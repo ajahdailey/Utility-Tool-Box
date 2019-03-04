@@ -126,34 +126,45 @@ public class StringUtils {
 //    Return a string with identical contents, where each character's case has been inverted.
     public String reverseCase(String string) {
         String result = "";
-        for (int i = 0; i < string.length(); i++){
-            if(string.charAt(i) >= 'A' && string.charAt(i) <= 'Z'){
-                char temp = (char)(string.charAt(i) + 32);
-                result += temp;
+            for (int i = 0; i < string.length(); i++) {
+                char c = string.charAt(i);
+                if (Character.isLowerCase(c)) {
+                    String convertedString = c + "";
+                    result = result + convertedString.toUpperCase();
+                } else {
+                    String convertedString =c + "";
+                    result = result + convertedString.toLowerCase();
+                }
             }
-            else if(string.charAt(i) >= 'a' && string.charAt(i) <= 'z'){
-                char temp = (char)(string.charAt(i) - 32);
-                result += temp;
-            }
-            else {
-                result += string.charAt(i);
-            }
-        }
-        return result;
+            return result;
     }
 
 
 //    Return a string that concatenates the indexes from two given strings one at a time (alternating between the two).
+    private String helpOneAtTime(String string1, String string2, int limit, String result) {
+        for (int i = 0; i < limit; i++) {
+            char c1 = string1.charAt(i);
+            char c2 = string2.charAt(i);
+            result += Character.toString(c1) + Character.toString(c2);
+        }
+        return result;
+
+    }
+
     public String oneAtATime(String string1, String string2) {
-        int longer = Math.max(string1.length(), string2.length());
         String result = "";
-        for (int i = 0; i < longer; i++) {
-            if(i < string1.length()){
-                result += string1.charAt(i);
-            }
-            if(i < string2.length()){
-                result += string2.charAt(i);
-            }
+        if (string1.length() == string2.length()) {
+            result = helpOneAtTime(string1, string2, string2.length(), result);
+        }
+        else if(string1.length() > string2.length()) {
+            result = helpOneAtTime(string1, string2, string2.length(), result);
+            int startIndex = string2.length();
+            result += string1.substring(startIndex);
+        } else {
+            result = helpOneAtTime(string1, string2, string2.length(), result);
+            int startIndex = string1.length();
+            result += string2.substring(startIndex);
+
         }
         return result;
     }
