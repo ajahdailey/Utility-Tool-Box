@@ -198,4 +198,29 @@ public class StringUtils {
         }
 
 
+        //Return the number of words ending in 'y' or 'z' -- so the 'y' in "heavy" and the 'z' in "fez" count.
+        // (Note: Character.isLetter(char) tests if a char is an alphabetic letter.)
+        //example : countYZ("fez day"); // Should return 2
+        //countYZ("day fez"); // Should return 2
+        //countYZ("day fyyyz"); // Should return 2
+
+    public Integer countYZ(String input){
+
+        char[] charArray = input.toCharArray();
+        Integer answer = 0;
+
+        for (int i = 0; i <charArray.length; i++){
+        if ((charArray[i] == 'y') || (charArray[i] == 'z') || (charArray[i] == 'Y') || (charArray[i] == 'Z')){
+        if ((i == (charArray.length - 1)) || (!Character.isLetter(charArray[i + 1]))){
+        answer++;
+        }
+        }
+        }
+        return answer;
+    }
+
+
+
+
+
 }
